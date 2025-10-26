@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useQueryClient } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -28,6 +29,7 @@ interface Local {
 
 export const MatchForm = ({ onClose }: MatchFormProps) => {
   const { toast } = useToast();
+  const queryClient = useQueryClient();
   
   // Estado para armazenar os dados do formulário
   const [formData, setFormData] = useState({
@@ -133,6 +135,9 @@ export const MatchForm = ({ onClose }: MatchFormProps) => {
         title: "Partida cadastrada!",
         description: "A partida foi agendada com sucesso.",
       });
+
+      // Invalida a query de 'matches' para forçar a atualização da lista
+      await queryClient.invalidateQueries({ queryKey: ["matches"] });
       onClose();
 
     } catch (error) {

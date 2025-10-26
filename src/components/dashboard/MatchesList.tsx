@@ -103,8 +103,8 @@ export const MatchesList = () => {
       return res.json();
     },
     onSuccess: () => {
-      toast({ title: 'Time excluído', description: 'A partida foi removido com sucesso.' });
-      queryClient.invalidateQueries({ queryKey: ["teams"] });
+      toast({ title: 'Partida excluída', description: 'A partida foi removida com sucesso.' });
+      queryClient.invalidateQueries({ queryKey: ["matches"] });
     },
     onError: (error: any) => {
       toast({ title: 'Erro ao excluir', description: error?.message || 'Erro desconhecido.' });
